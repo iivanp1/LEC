@@ -8,7 +8,6 @@ df = pd.read_csv(archivo_csv)
 
 df['Overall'] = pd.to_numeric(df['Overall'], errors='coerce')
 df['Value'] = pd.to_numeric(df['Value'], errors='coerce')
-# Estadísticos para 'Overall'
 overall_stats = df['Overall'].describe()
 
 value_stats = df['Value'].describe()
