@@ -14,7 +14,6 @@ value_stats = df['Value'].describe()
 
 print("Estadísticas para Overall:\n", overall_stats)
 print("\nEstadísticas para Value:\n", value_stats)
-# Histograma para 'Overall'
 plt.figure(figsize=(10, 6))
 sns.histplot(df['Overall'], kde=True)
 plt.title('Histograma de Overall')
