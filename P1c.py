@@ -6,30 +6,37 @@ import seaborn as sns
 archivo_csv = 'data.csv'
 df = pd.read_csv(archivo_csv)
 
+# Estadísticas para 'Overall'
 df['Overall'] = pd.to_numeric(df['Overall'], errors='coerce')
-df['Value'] = pd.to_numeric(df['Value'], errors='coerce')
 overall_stats = df['Overall'].describe()
 
-value_stats = df['Value'].describe()
+
+value_stats = df['Value'].replace({'€': '', 'M': '', 'K': '*1e-3'},regex=True).map(pd.eval)
 
 print("Estadísticas para Overall:\n", overall_stats)
-print("\nEstadísticas para Value:\n", value_stats)
+print("\nEstadísticas para Value:\n", value_stats.describe())
+
+
 plt.figure(figsize=(10, 6))
 sns.histplot(df['Overall'], kde=True)
 plt.title('Histograma de Overall')
 plt.show()
 
+
 plt.figure(figsize=(10, 6))
-sns.histplot(df['Value'], kde=True)
-plt.title('Histograma de Value')
+sns.histplot(value_stats, kde=True)
+plt.title('Histograma de Value (En millones)')
 plt.show()
+
 
 plt.figure(figsize=(10, 6))
 sns.boxplot(x=df['Overall'])
 plt.title('Boxplot de Overall')
 plt.show()
 
+
 plt.figure(figsize=(10, 6))
-sns.boxplot(x=df['Value'])
-plt.title('Boxplot de Value')
+sns.boxplot(x=value_stats)
+plt.title('Boxplot de Value (En millones)')
 plt.show()
+
